@@ -17,20 +17,21 @@ class ContestOutput(BaseModel):
 
 # Define a function to calculate reward based on completion time and percentage
 def calculate_reward(contest_id: int,percentage: Optional[float] = None, completion_time: Optional[float] = None) -> int:
+    reward_id=-1
     if contest_id == 1:
-        if (percentage is not None and percentage >= 0.8) or (completion_time is not None and completion_time < 30):
+        if (percentage is not None and percentage >= 0.8):
             reward_id = 4
-        elif (percentage is not None and percentage >= 0.6) or (completion_time is not None and completion_time < 50):
+        elif (percentage is not None and percentage >= 0.6):
             reward_id = 5
-        else:
+        elif (percentage is not None and percentage < 0.6):
             reward_id = 6
     elif contest_id == 2:
-        if (percentage is not None and percentage >= 0.8) or (completion_time is not None and completion_time < 15):
-            reward_id = 3
-        elif (percentage is not None and percentage >= 0.6) or (completion_time is not None and completion_time < 30):
-            reward_id = 2
-        else:
+        if (completion_time is not None and completion_time < 15):
             reward_id = 1
+        elif (completion_time is not None and completion_time < 30):
+            reward_id = 2
+        elif (completion_time is not None and completion_time >= 30):
+            reward_id = 3
     # elif contest_id == 3:
     #     if percentage >= 0.8 or completion_time < 30:
     #         reward_id = 7
@@ -38,9 +39,9 @@ def calculate_reward(contest_id: int,percentage: Optional[float] = None, complet
     #         reward_id = 6
     #     else:
     #         reward_id = 5
-    else:
-        # Default reward logic if contest ID is not recognized
-        reward_id = -1
+    # else:
+    #     # Default reward logic if contest ID is not recognized
+    #     reward_id = -1
 
     return reward_id
 
