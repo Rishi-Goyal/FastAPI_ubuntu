@@ -18,20 +18,20 @@ class ContestOutput(BaseModel):
 # Define a function to calculate reward based on completion time and percentage
 def calculate_reward(contest_id: int,percentage: Optional[float] = None, completion_time: Optional[float] = None) -> int:
     reward_id=-1
-    if contest_id == 2:
+    if contest_id == 1:
         if (percentage is not None and percentage >= 0.8):
-            reward_id = 4
-        elif (percentage is not None and percentage >= 0.6):
-            reward_id = 5
-        elif (percentage is not None and percentage < 0.6):
-            reward_id = 6
-    elif contest_id == 1:
-        if (completion_time is not None and completion_time < 15):
             reward_id = 1
-        elif (completion_time is not None and completion_time < 30):
+        elif (percentage is not None and percentage >= 0.6):
             reward_id = 2
-        elif (completion_time is not None and completion_time >= 30):
+        elif (percentage is not None and percentage < 0.6):
             reward_id = 3
+    elif contest_id == 2:
+        if (completion_time is not None and completion_time < 15):
+            reward_id = 4
+        elif (completion_time is not None and completion_time < 30):
+            reward_id = 5
+        elif (completion_time is not None and completion_time >= 30):
+            reward_id = 6
     # elif contest_id == 3:
     #     if percentage >= 0.8 or completion_time < 30:
     #         reward_id = 7
